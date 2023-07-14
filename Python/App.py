@@ -29,7 +29,7 @@ def calculator():
         global calculation
         try:
             calculation = str(eval(calculation))
-            display_text.delete(1.0,)
+            display_text.delete(1.0,'end')
             display_text.insert(1.0,calculation)
         except:
             clear()
@@ -39,7 +39,7 @@ def calculator():
     def clear():
         global calculation
         calculation=""
-        display_text.delete(1.0,)
+        display_text.delete(1.0,'end')
 
         
     #These are all the buttons/texts/labels used for the calculator
