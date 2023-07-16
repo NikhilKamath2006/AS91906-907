@@ -6,10 +6,11 @@ from tkinter import messagebox
 #opening window
 root = Tk()
 root.title = ("All In One")
+root.resizable(0,0)
 
 #A basic menu bar setup for future iterations
 main_menu = Menu(root)
-root.config(menu = main_menu)
+root.config(menu = main_menu,bg="#40e0d0")
 
 
 solve=""
@@ -54,55 +55,87 @@ def calculator():
     #Lambda records the buttons clicked then sends the buttons clicked back to the display function
     #Then when equal is clicked the calculate function uses the data from display function
     #to print the final answer
-    display_text = Text(root,height='2',width='20',bg='blue',font='xenara')
-    display_text.grid(row=0,columnspan=5)
-
-    button0= Button(root,text="0",command = lambda:display(0),height = '2', width = '2',font='xenara') 
+    display_text = Text(root,height='2',width='20',bg='#cccccc',font=('xenara','15'))
+    display_text.grid(row=0,columnspan=5,)
+    
+    button0= Button(root,text="0",command = lambda:display(0),
+                    height = '2', width = '2',font='xenara',bg='#8aecff') 
+    
     button0.grid(row=1,column=0)
 
-    button1= Button(root,text="1",command = lambda:display(1),height = '2', width = '2',font='xenara') 
+    button1= Button(root,text="1",command = lambda:display(1),bg='#8aecff',
+                    height = '2', width = '2',font='xenara') 
+    
     button1.grid(row=1,column=1)
 
-    button2= Button(root,text="2",command = lambda:display(2),height = '2', width = '2',font='xenara') 
+    button2= Button(root,text="2",command = lambda:display(2),bg='#8aecff',
+                    height = '2', width = '2',font='xenara') 
+    
     button2.grid(row=1,column=2)
 
-    button3= Button(root,text="3",command = lambda:display(3),height = '2', width = '2',font='xenara') 
+    button3= Button(root,text="3",command = lambda:display(3),bg='#8aecff',
+                    height = '2', width = '2',font='xenara') 
+    
     button3.grid(row=1,column=3)
 
-    button4= Button(root,text="4",command = lambda:display(4),height = '2', width = '2',font='xenara') 
+    button4= Button(root,text="4",command = lambda:display(4),bg='#8aecff',
+                    height = '2', width = '2',font='xenara') 
+    
     button4.grid(row=1,column=4)
 
-    button5= Button(root,text="5",command = lambda:display(5),height = '2', width = '2',font='xenara') 
+    button5= Button(root,text="5",command = lambda:display(5),bg='#8aecff',
+                    height = '2', width = '2',font='xenara') 
+    
     button5.grid(row=2,column=0)
 
-    button6= Button(root,text="6",command = lambda:display(6),height = '2', width = '2',font='xenara') 
+    button6= Button(root,text="6",command = lambda:display(6),bg='#8aecff',
+                    height = '2', width = '2',font='xenara') 
+    
     button6.grid(row=2,column=1)
 
-    button7= Button(root,text="7",command = lambda:display(7),height = '2', width = '2',font='xenara') 
+    button7= Button(root,text="7",command = lambda:display(7),bg='#8aecff',
+                    height = '2', width = '2',font='xenara') 
+    
     button7.grid(row=2,column=2)
 
-    button8= Button(root,text="8",command = lambda:display(8),height = '2', width = '2',font='xenara') 
+    button8= Button(root,text="8",command = lambda:display(8),bg='#8aecff',
+                    height = '2', width = '2',font='xenara') 
+    
     button8.grid(row=2,column=3)
 
-    button9= Button(root,text="9",command = lambda:display(9),height = '2', width = '2',font='xenara')
+    button9= Button(root,text="9",command = lambda:display(9),bg='#8aecff',
+                    height = '2', width = '2',font='xenara')
+    
     button9.grid(row=2,column=4)
 
-    subtract_button = Button(root,text='-',command=lambda:display("-"),height = '2', width = '2',font='xenara')
+    subtract_button = Button(root,text='-',command=lambda:display("-"),bg='#8aecff',
+                             height = '2', width = '2',font='xenara')
+    
     subtract_button.grid(row=3,column = 0)
 
-    add_button = Button(root,text='+',command=lambda:display("+"),height = '2', width = '2',font='xenara')
+    add_button = Button(root,text='+',command=lambda:display("+"),bg='#8aecff',
+                        height = '2', width = '2',font='xenara')
+    
     add_button.grid(row=3,column=1)
 
-    divide_button = Button(root,text ='/',command=lambda:display("/"),height = '2', width = '2',font='xenara')
+    divide_button = Button(root,text ='/',command=lambda:display("/"),bg='#8aecff',
+                           height = '2', width = '2',font='xenara')
+    
     divide_button.grid(row=3,column=2)
 
-    multiply_button = Button(root,text='x',command=lambda:display("*"),height = '2', width = '2',font='xenara')
+    multiply_button = Button(root,text='x',command=lambda:display("*"),bg='#8aecff',
+                             height = '2', width = '2',font='xenara')
+    
     multiply_button.grid(row=3,column=3)
 
-    clear_button = Button(root,text='C',command= clear,height = '2', width = '2',bg='#FF0000',font='xenara')
+    clear_button = Button(root,text='C',command= clear,
+                          height = '2', width = '2',bg='#FF0000',font='xenara')
+    
     clear_button.grid(row=3,column=4)
 
-    equal_button = Button(root,text='=',command=calculate,height = '2', width = '2',background="#86DC3D",font='xenara')
+    equal_button = Button(root,text='=',command=calculate,
+                          height = '2', width = '2',background="#86DC3D",font='xenara')
+    
     equal_button.grid(row=4,column=2)
 
 
