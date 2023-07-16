@@ -137,7 +137,10 @@ def calculator():
                           height = '2', width = '2',background="#86DC3D",font='xenara')
     
     equal_button.grid(row=4,column=2)
-
+    
+    decimal_button = Button(root,text='.',command=lambda:display("."),bg='#8aecff',
+                             height = '2', width = '2',font='xenara')
+    decimal_button.grid(row=4,column=3)
 
 #More of the menubar
 options_menu = Menu(main_menu)
