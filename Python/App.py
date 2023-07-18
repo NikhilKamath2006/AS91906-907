@@ -32,32 +32,7 @@ def calculator():
         display_text.delete(1.0,'end')
         display_text.insert(1.0,solve)
 
-    #This fuction does the calculation part
-    #Using try and except I evaluate(eval) the calculation once its done it displays the new number
-    #but if the evaluation goes wrong the program will reset.
-    def calculate():
-        global solve
-        try:
-            solve = str(eval(solve))
-            display_text.delete(1.0,'end')
-            display_text.insert(1.0,solve)
-        except:
-            clear()
-            display_text.insert(1.0,"Error, please check your entry")
-            
-    #This function is for the clear button on the calculator, if clicked the display box clears.
-    #A messagebox popup will allow user to confirm their choice
-    def clear():
-        if messagebox.askyesno(message="This will clear your calculation are you sure?") == True:
-            global solve
-            solve=""
-            display_text.delete(1.0,'end')
-        else:
-            pass
 
-       
-
-        
     #These are all the buttons/texts/labels used for the calculator
     #Lambda records the buttons clicked then sends the buttons clicked back to the display function
     #Then when equal is clicked the calculate function uses the data from display function
@@ -135,19 +110,44 @@ def calculator():
     
     multiply_button.grid(row=3,column=3)
 
+    decimal_button = Button(root,text='.',command=lambda:display("."),bg='#8aecff',
+                             height = '2', width = '2',font='xenara')
+    decimal_button.grid(row=4,column=3)
+
+
+    #This function is for the clear button on the calculator, if clicked the display box clears.
+    #A messagebox popup will allow user to confirm their choice
+    def clear():
+        if messagebox.askyesno(message="This will clear your calculation are you sure?") == True:
+            global solve
+            solve=""
+            display_text.delete(1.0,'end')
+        else:
+            pass
+    
     clear_button = Button(root,text='C',command= clear,
                           height = '2', width = '2',bg='#FF0000',font='xenara')
     
     clear_button.grid(row=3,column=4)
+
+    #This fuction does the calculation part
+    #Using try and except I evaluate(eval) the calculation once its done it displays the new number
+    #but if the evaluation goes wrong the program will reset.
+    def calculate():
+        global solve
+        try:
+            solve = str(eval(solve))
+            display_text.delete(1.0,'end')
+            display_text.insert(1.0,solve)
+        except:
+            clear()
+            display_text.insert(1.0,"Error, please check your entry")
 
     equal_button = Button(root,text='=',command=calculate,
                           height = '2', width = '2',background="#86DC3D",font='xenara')
     
     equal_button.grid(row=4,column=2)
     
-    decimal_button = Button(root,text='.',command=lambda:display("."),bg='#8aecff',
-                             height = '2', width = '2',font='xenara')
-    decimal_button.grid(row=4,column=3)
 
 #More of the menubar
 options_menu = Menu(main_menu)
