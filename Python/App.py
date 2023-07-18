@@ -12,6 +12,13 @@ root.resizable(0,0)
 main_menu = Menu(root)
 root.config(menu = main_menu,bg="#40e0d0")
 
+def exit():
+    confirm = messagebox.askyesno(message='Do you want to exit?')
+    if confirm ==True:
+        root.quit
+    elif confirm != True:
+        pass
+
 
 solve=""
 #This function integrates calculator into the menubar 
@@ -146,7 +153,5 @@ def calculator():
 options_menu = Menu(main_menu)
 main_menu.add_cascade(label="Options",menu=options_menu)
 options_menu.add_command(label="Calculator", command=calculator)
-
-
-
+options_menu.add_command(label='Exit', command= exit)
 root.mainloop()
