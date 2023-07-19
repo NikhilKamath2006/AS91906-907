@@ -177,10 +177,13 @@ def tax():
             tax_topay = ((int_salary-180000)*0.39)+50320
             after_tax = int_salary-tax_topay
             taxed_label.config(text=('You will have $',after_tax,"after tax, so you will be paying $",tax_topay,"tax"))
-    
+        else:
+            messagebox.showerror('invalid','Please check your entry again')
     #labels and buttons for the tax calculator
     tax_label = Label(root,text='What is your yearly income?',bg="#ffdb58",font='xenara',borderwidth=5,relief='groove')
     tax_label.grid()
+    taxed_label2 = Label(root,bg='#40e0d0',font='xenara')
+    taxed_label2.grid()
     taxed_label = Label(root,bg="#40e0d0",font='xenara')
     taxed_label.grid()
     salary = Entry(root)
