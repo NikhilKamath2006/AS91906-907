@@ -149,6 +149,46 @@ def calculator():
     equal_button.grid(row=4,column=2)
     
 
+def tax():
+     #This function calculates the tax depending on the amount of money earned
+    def calculate_tax():
+        global after_tax
+        global tax_topay
+        int_salary = int(salary.get())
+        if 0< int_salary <= (14000):
+            after_tax = int_salary*0.895
+            tax_topay = int_salary*0.105
+            taxed_label.config(text=('You will have $',after_tax,"after tax, so you will be paying $",tax_topay,"tax"))
+            
+        elif 14000< int_salary <= 48000:
+            tax_topay = ((int_salary-14000)*0.175)+1470
+            after_tax = int_salary-tax_topay
+            taxed_label.config(text=('You will have $',after_tax,"after tax, so you will be paying $",tax_topay,"tax"))
+        elif 48000< int_salary <= 70000:
+            tax_topay = ((int_salary-48000)*0.3)+7420
+            after_tax = int_salary-tax_topay
+            taxed_label.config(text=('You will have $',after_tax,"after tax, so you will be paying $",tax_topay,"tax"))
+        elif 70000< int_salary <= 180000:
+            tax_topay = ((int_salary-70000)*0.33)+14020
+            after_tax = int_salary-tax_topay
+            taxed_label.config(text=('You will have $',after_tax,"after tax, so you will be paying $",tax_topay,"tax"))
+        elif 180000< int_salary <= 10000000000:
+            
+            tax_topay = ((int_salary-180000)*0.39)+50320
+            after_tax = int_salary-tax_topay
+            taxed_label.config(text=('You will have $',after_tax,"after tax, so you will be paying $",tax_topay,"tax"))
+    
+    #labels and buttons for the tax calculator
+    tax_label = Label(root,text='What is your yearly income?',bg="#ffdb58",font='xenara',borderwidth=5,relief='groove')
+    tax_label.grid()
+    taxed_label = Label(root,bg="#40e0d0",font='xenara')
+    taxed_label.grid()
+    salary = Entry(root)
+    salary.grid()
+    tax_button = Button(root,text='Tax Me!',command = calculate_tax ,bg="#ffdb58",font='xenara')
+    tax_button.grid()
+
+
 #More of the menubar
 options_menu = Menu(main_menu)
 main_menu.add_cascade(label="Options",menu=options_menu)
