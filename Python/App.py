@@ -12,15 +12,19 @@ root.resizable(0,0)
 main_menu = Menu(root)
 root.config(menu = main_menu,bg="#40e0d0")
 
+
 frame1 = Frame(root,bg="#40e0d0")
 frame2 = Frame(root,bg="#40e0d0")
 
+welcome_label=Label(root,text='Welcome to the smart calculator!',bg='yellow',font='xenara',height='5',borderwidth=5,relief='solid')
+welcome_label.grid(columnspan=5,rowspan=5)
 
 solve=""
 after_tax=''
 tax_topay=''
 
 def frame_forget():
+    welcome_label.grid_forget()
     frame1.grid_forget()
     frame2.grid_forget()
 
@@ -35,8 +39,8 @@ def frame_calculator():
     def display(user_input):
         global solve
         solve += str(user_input)
-        display_text.delete(1.0,'end')
-        display_text.insert(1.0,solve)
+        live_display.delete(1.0,'end')
+        live_display.insert(1.0,solve)
 
     #This fuction does the calculation part
     #Using try and except I evaluate(eval) the calculation once its done it displays the new number
@@ -45,11 +49,11 @@ def frame_calculator():
         global solve
         try:
             solve = str(eval(solve))
-            display_text.delete(1.0,'end')
-            display_text.insert(1.0,solve)
+            live_display.delete(1.0,'end')
+            live_display.insert(1.0,solve)
         except:
             clear()
-            display_text.insert(1.0,"Error, please check your entry")
+            live_display.insert(1.0,"Error, please check your entry")
             
     #This function is for the clear button on the calculator, if clicked the display box clears.
     #A messagebox popup will allow user to confirm their choice
@@ -57,7 +61,7 @@ def frame_calculator():
         if messagebox.askyesno(message="This will clear your calculation are you sure?") == True:
             global solve
             solve=""
-            display_text.delete(1.0,'end')
+            live_display.delete(1.0,'end')
         else:
             pass
 
@@ -69,8 +73,8 @@ def frame_calculator():
     #Lambda records the buttons clicked then sends the buttons clicked back to the display function
     #Then when equal is clicked the calculate function uses the data from display function
     #to print the final answer
-    display_text = Text(frame1,height='2',width='20',bg='#cccccc',font=('xenara','15'))
-    display_text.grid(row=0,columnspan=5,)
+    live_display = Text(frame1,height='2',width='20',bg='#cccccc',font=('xenara','15'))
+    live_display.grid(row=0,columnspan=5,)
     
     button0= Button(frame1,text="0",command = lambda:display(0),
                     height = '2', width = '2',font='xenara',bg='#8aecff') 
@@ -156,14 +160,12 @@ def frame_calculator():
     
     equal_button.grid(row=4,column=2)
     
-
-
-#More of the menubar
-
-
+#framing for tax
 def tax_frame():
     frame_forget()
     frame2.grid()
+
+    #calculation for tax
     def calculate_tax():
         global after_tax
         global tax_topay
@@ -186,10 +188,11 @@ def tax_frame():
             after_tax = int_salary-tax_topay
             taxed_label.config(text=('You will have $',after_tax,"after tax, so you will be paying $",tax_topay,"tax"))
         elif 180000< int_salary <= 10000000000:
-            
             tax_topay = ((int_salary-180000)*0.39)+50320
             after_tax = int_salary-tax_topay
             taxed_label.config(text=('You will have $',after_tax,"after tax, so you will be paying $",tax_topay,"tax"))
+   
+    #label and buttons for tax calculator
     tax_label = Label(frame2,text='What is your yearly income?',bg="#ffdb58",font='xenara',borderwidth=5,relief='groove')
     tax_label.grid()
     taxed_label = Label(frame2,bg="#40e0d0",font='xenara')
@@ -199,6 +202,7 @@ def tax_frame():
     tax_button = Button(frame2,text='Tax Me!',command = calculate_tax ,bg="#ffdb58",font='xenara')
     tax_button.grid()
 
+#More of options menu
 options_menu = Menu(main_menu)
 main_menu.add_cascade(label="Options",menu=options_menu)
 options_menu.add_command(label="Calculator", command=frame_calculator) 
