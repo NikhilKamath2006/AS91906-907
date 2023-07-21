@@ -1,16 +1,22 @@
+#importing tkinter and messgaebox
 from tkinter import*
 from tkinter import messagebox
-root = Tk()
 
+#setting up main window
+root = Tk()
 main_menu = Menu(root)
 root.config(menu = main_menu,bg="#40e0d0")
+
+
 solve = ""
+
+#Class for the calculator feature
 class   Calculator:
     def __init__(self,calc_frame):
-             #These are all the buttons/texts/labels used for the calculator
-            #Lambda records the buttons clicked then sends the buttons clicked back to the display function
-            #Then when equal is clicked the calculate function uses the data from display function
-            #to print the final answer
+        #These are all the buttons/texts/labels used for the calculator
+        #Lambda records the buttons clicked then sends the buttons clicked back to the display function
+        #Then when equal is clicked the calculate function uses the data from display function
+        #to print the final answer
         frame_1 = Frame(calc_frame)
         frame_1.grid()
 
@@ -134,13 +140,13 @@ class   Calculator:
 
 
         
-
+#Class for the tax feature
 class Tax:
     def __init__(self,tax_frame):
         frame_2 = Frame(tax_frame)
         frame_2.grid()
 
-        
+        #These are the labels and buttons used for the tax calculator
         self.tax_label = Label(tax_frame,text='What is your yearly income?',bg="#ffdb58",font='xenara',borderwidth=5,relief='groove')
         self.tax_label.grid()
 
@@ -152,7 +158,7 @@ class Tax:
         
         self.tax_button = Button(tax_frame,text='Tax Me!',command = self.calculate_tax ,bg="#ffdb58",font='xenara')
         self.tax_button.grid()
-   
+    #This function calculates the tax depending on the salary using if statments
     def calculate_tax(self):
         int_salary = int(self.salary.get())
         if 0< int_salary <= (14000):
@@ -181,13 +187,14 @@ class Tax:
             after_tax = int_salary-tax_topay
             self.taxed_label.config(text=f'You will have ${after_tax} after tax, so you will be paying ${tax_topay} in tax')
         
+        #These two statments are for invalid entries by the user
         elif self.salary.get != int:
             messagebox.showerror('Error','Error,Please check entry')
         else :
             messagebox.showerror('Error','Error,Please check entry')
 
 
-
+#Linking the classes to menubar
 options_menu = Menu(main_menu)
 main_menu.add_cascade(label="Options",menu=options_menu)
 options_menu.add_command(label="Calculator", command=Calculator(root)) 
