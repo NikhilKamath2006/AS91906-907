@@ -145,7 +145,7 @@ class Tax:
         self.taxed_label = Label(tax_frame,bg="#40e0d0",font='xenara')
         self.taxed_label.grid()
         
-        self.salary = Entry(root)
+        self.salary = Entry(tax_frame)
         self.salary.grid()
         
         self.tax_button = Button(tax_frame,text='Tax Me!',command = self.calculate_tax ,bg="#ffdb58",font='xenara')
@@ -273,13 +273,19 @@ def days_date():
     days_frame.grid()
     date_call = Date(days_frame)
 
+def exit():
+    confirm_exit=messagebox.askyesno('Quit','Are you sure you want to quit?')
+    if confirm_exit == True:
+        root.quit
+    else:
+        pass
 #Options of the main menu
 options_menu = Menu(main_menu)
 main_menu.add_cascade(label="Options", menu=options_menu)
 options_menu.add_command(label="Calculator", command=calculator)
 options_menu.add_command(label="Tax", command=tax)
 options_menu.add_command(label="Date to days", command=days_date)
-options_menu.add_command(label="Exit", command=root.quit)
+options_menu.add_command(label="Exit", command=exit)
 
                                
 root.mainloop()
