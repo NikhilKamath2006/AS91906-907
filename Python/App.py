@@ -240,7 +240,7 @@ class Date:
     def find_days(self):
         first_date = datetime.date(self.year1_int.get(), self.month1_int.get(), self.day1_int.get())
         second_date = datetime.date(self.year2_int.get(), self.month2_int.get(), self.day2_int.get())
-        days_between = abs((second_date - first_date).days)  # Use abs() to ensure a positive result
+        days_between = ((second_date - first_date).days)  # Use abs() to ensure a positive result
         self.days.config(text=days_between)
 # Create frames for each section
 calc_frame = Frame(root, bg="#40e0d0")
