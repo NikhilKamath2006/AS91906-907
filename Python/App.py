@@ -190,6 +190,7 @@ class Date:
         year_options = range(2024)
         
         
+        
         #converting options from optionmenu into integers so it can be used with datetime
         self.day1_int = IntVar()
         self.day1_int.set(day_options[0])
@@ -211,37 +212,36 @@ class Date:
        
         #widgets for the date to days feature
         self.day1 = OptionMenu(days_frame,self.day1_int,*day_options)
-        self.day1.grid(row = 1, column = 1)
+        self.day1.grid(row = 2, column = 0)
         
         self.month1 = OptionMenu(days_frame,self.month1_int,*month_options)
-        self.month1.grid(row = 1, column=2)
+        self.month1.grid(row = 2, column=1)
         
         self.year1 = OptionMenu(days_frame,self.year1_int,*year_options)
-        self.year1.grid(row = 1, column = 3)
+        self.year1.grid(row = 2, column = 2)
         
         self.day2 = OptionMenu(days_frame,self.day2_int,*day_options)
-        self.day2.grid(row = 2 , column = 0)
+        self.day2.grid(row = 3 , column = 0)
         
         self.month2 = OptionMenu(days_frame,self.month2_int,*month_options)
-        self.month2.grid(row =2 , column = 1)
+        self.month2.grid(row =3 , column = 1)
 
         self.year2 = OptionMenu(days_frame,self.year2_int,*year_options)
-        self.year2.grid(row = 2, column = 2)
+        self.year2.grid(row = 3, column = 2)
         
-        self.question = Label(days_frame,text='Calculate the days between dates!')
+        self.question = Label(days_frame,text='Calculate the days between dates!',height='1')
         self.question.grid(row = 0,column = 0)
         self.days = Label(days_frame)
-        self.days.grid(row = 4,column = 4)
+        self.days.grid(row = 2,column = 1)
         self.find = Button(days_frame,text='Calculate',command = self.find_days)
-        self.find.grid(row = 3 ,column = 3)
+        self.find.grid()
 
     #using datetime module to convert optionmenu into integer then convert to date
     def find_days(self):
-        first_date = datetime.date(self.day1_int.get(),self.month1_int.get(),self.year1_int.get())
-        second_date =datetime.date(self.day2_int.get(),self.month2_int.get(),self.year2_int.get())
-        days_between = (second_date - first_date)
-        self.days.config(text = days_between.days)
-
+        first_date = datetime.date(self.year1_int.get(), self.month1_int.get(), self.day1_int.get())
+        second_date = datetime.date(self.year2_int.get(), self.month2_int.get(), self.day2_int.get())
+        days_between = abs((second_date - first_date).days)  # Use abs() to ensure a positive result
+        self.days.config(text=days_between)
 # Create frames for each section
 calc_frame = Frame(root, bg="#40e0d0")
 calc_frame.grid()
@@ -259,14 +259,17 @@ def clear_frame():
 #functions for the frames of diffrent features
 def calculator():
     clear_frame()
+    calc_frame.grid()
     calculator_call = Calculator(calc_frame)
 
 def tax():
     clear_frame()
+    tax_frame.grid
     tax_call = Tax(tax_frame)
 
 def days_date():
     clear_frame()
+    days_frame.grid()
     date_call = Date(days_frame)
 
 #Options of the main menu
