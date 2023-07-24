@@ -251,20 +251,21 @@ days_frame = Frame(root, bg="#40e0d0")
 days_frame.grid()
 
 def clear_frame():
-    calc_frame.grid_forget
-    tax_frame.grid_forget
-    days_frame.grid_forget
+    calc_frame.grid_forget()
+    tax_frame.grid_forget()
+    days_frame.grid_forget()
 
 
 #functions for the frames of diffrent features
 def calculator():
     clear_frame()
+
     calc_frame.grid()
     calculator_call = Calculator(calc_frame)
 
 def tax():
     clear_frame()
-    tax_frame.grid
+    tax_frame.grid()
     tax_call = Tax(tax_frame)
 
 def days_date():
