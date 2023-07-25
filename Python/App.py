@@ -8,6 +8,7 @@ root.config(menu = main_menu,bg="#40e0d0")
 
 solve = ""
 
+
 class   Calculator:
     
     def __init__(self,calc_frame):
@@ -212,57 +213,81 @@ class Date:
        
         #widgets for the date to days feature
         self.day1 = OptionMenu(days_frame,self.day1_int,*day_options)
-        self.day1.grid(row = 2, column = 0)
+        self.day1.grid(row = 1, column = 0)
+
+        self.day2 = OptionMenu(days_frame,self.day2_int,*day_options)
+        self.day2.grid(row = 2, column = 0)
+        
         
         self.month1 = OptionMenu(days_frame,self.month1_int,*month_options)
-        self.month1.grid(row = 2, column=1)
-        
-        self.year1 = OptionMenu(days_frame,self.year1_int,*year_options)
-        self.year1.grid(row = 2, column = 2)
-        
-        self.day2 = OptionMenu(days_frame,self.day2_int,*day_options)
-        self.day2.grid(row = 3 , column = 0)
+        self.month1.grid(row = 1, column=1)
         
         self.month2 = OptionMenu(days_frame,self.month2_int,*month_options)
-        self.month2.grid(row =3 , column = 1)
+        self.month2.grid(row =2 , column = 1)
 
-        self.year2 = OptionMenu(days_frame,self.year2_int,*year_options)
-        self.year2.grid(row = 3, column = 2)
+        self.year1 = OptionMenu(days_frame,self.year1_int,*year_options)
+        self.year1.grid(row = 1, column = 2)
         
-        self.question = Label(days_frame,text='Calculate the days between dates!',height='1')
-        self.question.grid(row = 0,column = 0)
+        self.year2 = OptionMenu(days_frame,self.year2_int,*year_options)
+        self.year2.grid(row = 2, column = 2)
+        
+        self.question = Label(days_frame,text='Calculate the days between dates!',height='3',pady=10)
+        self.question.grid(row = 0,columnspan= 5)
         self.days = Label(days_frame)
-        self.days.grid(row = 2,column = 1)
+        self.days.grid(row = 4,column = 1)
         self.find = Button(days_frame,text='Calculate',command = self.find_days)
-        self.find.grid()
+        self.find.grid(row=3,column=1)
 
     #using datetime module to convert optionmenu into integer then convert to date
     def find_days(self):
         first_date = datetime.date(self.year1_int.get(), self.month1_int.get(), self.day1_int.get())
         second_date = datetime.date(self.year2_int.get(), self.month2_int.get(), self.day2_int.get())
-        days_between = ((second_date - first_date).days)  # Use abs() to ensure a positive result
+        days_between = ((second_date - first_date).days)  
         self.days.config(text=days_between)
-# Create frames for each section
+
+class Welcome():
+    def __init__(self,welcome_frame):
+
+        self.title = Label(welcome_frame,text='Welcome to the Smart Calculator')
+        self.title.grid()
+
+        self.tax_feature = Button(welcome_frame,text='Tax',command = tax)
+        self.tax_feature.grid()
+
+        self.calc_feature = Button(welcome_frame,text ='Calculator',command = calculator)
+        self.calc_feature.grid()
+
+        self.date_feature = Button(welcome_frame,text='Date to Days',command = days_date)
+        self.date_feature.grid()
+
+
+
+#Create frames for each section
 calc_frame = Frame(root, bg="#40e0d0")
-calc_frame.grid()
+
 tax_frame = Frame(root, bg="#40e0d0")
-tax_frame.grid()
+
 days_frame = Frame(root, bg="#40e0d0")
-days_frame.grid()
+
+welcome_frame = Frame(root,bg='#40e0d0')
 
 def clear_frame():
     calc_frame.grid_forget()
     tax_frame.grid_forget()
     days_frame.grid_forget()
-
-
-#functions for the frames of diffrent features
+    welcome_frame.grid_forget()
+    
+    
+    #functions for the frames of diffrent features
 def calculator():
     clear_frame()
-
     calc_frame.grid()
     calculator_call = Calculator(calc_frame)
 
+def welcome():
+    clear_frame()
+    welcome_frame.grid()
+    welcome_call = Welcome(welcome_frame)
 def tax():
     clear_frame()
     tax_frame.grid()
@@ -279,9 +304,12 @@ def exit():
         root.quit
     else:
         pass
+
+welcome()
 #Options of the main menu
 options_menu = Menu(main_menu)
 main_menu.add_cascade(label="Options", menu=options_menu)
+options_menu.add_command(label='Home',command=welcome)
 options_menu.add_command(label="Calculator", command=calculator)
 options_menu.add_command(label="Tax", command=tax)
 options_menu.add_command(label="Date to days", command=days_date)
