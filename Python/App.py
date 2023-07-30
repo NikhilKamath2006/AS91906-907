@@ -7,7 +7,6 @@ root = Tk()
 main_menu = Menu(root)
 root.config(menu = main_menu,bg="#40e0d0")
 
-solve = ""
 class   Calculator:
     
     def __init__(self,calc_frame):
@@ -15,6 +14,7 @@ class   Calculator:
         #Lambda records the buttons clicked then sends the buttons clicked back to the display function
         #Then when equal is clicked the calculate function uses the data from display function
         #to print the final answer
+        self.solve =''
         self.live_display = Text(calc_frame,height='2',width='20',bg='#cccccc',font=('xenara','15'))
         self.live_display.grid(row=0,columnspan=5,)
         
@@ -87,20 +87,18 @@ class   Calculator:
         self.equal_button.grid(row=4,column=2)
             
     def display(self,user_input):
-        global solve
-        solve += str(user_input)
+        self.solve += str(user_input)
         self.live_display.delete(1.0,'end')
-        self.live_display.insert(1.0,solve)
+        self.live_display.insert(1.0,self.solve)
 
     #This fuction does the calculation part
     #Using try and except I evaluate(eval) the calculation once its done it displays the new number
     #but if the evaluation goes wrong the program will reset.
     def calculate(self):
-        global solve
         try:
-            solve = str(eval(solve))
+            self.solve = str(eval(self.solve))
             self.live_display.delete(1.0,'end')
-            self.live_display.insert(1.0,solve)
+            self.live_display.insert(1.0,self.solve)
         except:
             self.clear()
             self.live_display.insert(1.0,"Error, please check your entry")
@@ -131,14 +129,14 @@ class Tax:
         self.tax_button.grid()
     
     def calculate_tax(self):
-        #calculates the tax and these if statments are for the diffrent tax brackets
+        #checks if the input is valid
         chk_salary = self.salary.get()
         try:
             int_salary = float(chk_salary)
         except ValueError:
             messagebox.showerror('Error','Please check entry')
-            self.taxed_label.config(text="Error")
-
+            self.taxed_label.config(text="Error,try again")
+        #calculates the tax and these if statments are for the diffrent tax brackets
         int_salary = float(self.salary.get())
         if 0< int_salary <= (14000):
             after_tax = int_salary*0.895
@@ -159,10 +157,6 @@ class Tax:
         elif 180000< int_salary:
             tax_topay = ((int_salary-180000)*0.39)+50320
             after_tax = int_salary-tax_topay
-        
-        #error message if user input is invalid
-        else :
-            messagebox.showerror('Error','Error,Please check entry')
         #showing result on the label
         self.taxed_label.config(text=f'You will have ${after_tax} after tax, so you will be paying ${tax_topay} in tax')
         
@@ -218,10 +212,14 @@ class Date:
 
     #using datetime module to convert optionmenu into integer then convert to date
     def find_days(self):
-        first_date = datetime.date(self.year1_int.get(), self.month1_int.get(), self.day1_int.get())
-        second_date = datetime.date(self.year2_int.get(), self.month2_int.get(), self.day2_int.get())
-        days_between = ((second_date - first_date).days)  
-        self.days.config(text=days_between)
+        try:
+            first_date = datetime.date(self.year1_int.get(), self.month1_int.get(), self.day1_int.get())
+            second_date = datetime.date(self.year2_int.get(), self.month2_int.get(), self.day2_int.get())
+            days_between = (abs(second_date - first_date).days)  
+            self.days.config(text=days_between)
+        except ValueError:
+            messagebox.showerror('Error','Invalid')
+            
 
 #Class for the welcome page, the buttons will guide user to diffrent parts of app
 class Welcome():
@@ -247,30 +245,39 @@ days_frame = Frame(root, bg="#40e0d0")
 welcome_frame = Frame(root,bg='#40e0d0')
 
 def clear_frame():
-    calc_frame.pack_forget()
-    tax_frame.pack_forget()
-    days_frame.pack_forget()
-    welcome_frame.pack_forget()
+    for widget in tax_frame.winfo_children():
+        widget.destroy()
+    for widget in calc_frame.winfo_children():
+        widget.destroy()
+    for widget in days_frame.winfo_children():
+        widget.destroy()
+    for widget in welcome_frame.winfo_children():
+        widget.destroy()
+
+    calc_frame.grid_forget()
+    tax_frame.grid_forget()
+    days_frame.grid_forget()
+    welcome_frame.grid_forget()
     
     #functions for calling the frames of diffrent features
 def calculator():
     clear_frame()
-    calc_frame.pack()
+    calc_frame.grid()
     calculator_call = Calculator(calc_frame)
 
 def welcome():
     clear_frame()
-    welcome_frame.pack()
+    welcome_frame.grid()
     welcome_call = Welcome(welcome_frame)
 
 def tax():
     clear_frame()
-    tax_frame.pack()
+    tax_frame.grid()
     tax_call = Tax(tax_frame)
 
 def days_date():
     clear_frame()
-    days_frame.pack()
+    days_frame.grid()
     date_call = Date(days_frame)
 
 def exit():
