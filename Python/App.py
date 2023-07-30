@@ -101,13 +101,12 @@ class   Calculator:
             self.live_display.delete(1.0,'end')
             self.live_display.insert(1.0,self.solve)
         except ZeroDivisionError:
-            self.live_display.insert(1.0,"Error, please check your entry")
-            self.live_display.delete(1.0,'end')
-            messagebox.showerror('Error,Please check entry')
+            self.live_display.insert(1.0,"Error', 'please check your entry")
+            messagebox.showerror('Error','Please check entry')
         except:
             self.live_display.insert(1.0,"Error, please check your entry")
             messagebox.showerror('Error','Please check entry')
-            self.live_display.delete(1.0,'end')
+            
             
     #This function is for the clear button on the calculator, if clicked the display box clears.
     #A messagebox popup will allow user to confirm their choice
