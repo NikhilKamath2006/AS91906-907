@@ -1,13 +1,17 @@
+#importing modules
 from tkinter import*
 from tkinter import messagebox
 import datetime
 from tkinter import ttk
+
+#setting up root
 root = Tk()
 root.resizable(0,0)
 main_menu = Menu(root)
 root.config(menu = main_menu,bg="#1B60F4")
 root.title('Smart Calculator')
 
+#Class for the calculator feature
 class   Calculator:
     
     def __init__(self,calc_frame):
@@ -117,10 +121,12 @@ class   Calculator:
         else:
             pass
 
+#Class for the tax feature
 class Tax:
     def __init__(self,tax_frame):
         #initiating the tax class
-        self.tax_label = Label(tax_frame,text='What is your yearly income?',bg="#6dd47e",font='xenara',borderwidth=5,relief='groove')
+        self.tax_label = Label(tax_frame,text='What is your yearly income?',bg="#6dd47e",
+                               font='xenara',borderwidth=5,relief='groove')
         self.tax_label.grid(pady='2',padx='2')
 
         self.taxed_label = Label(tax_frame,bg="#1b60f4",font='xenara')
@@ -129,7 +135,8 @@ class Tax:
         self.salary = Entry(tax_frame)
         self.salary.grid(padx='2',pady='2')
         
-        self.tax_button = Button(tax_frame,text='Tax Me!',command = self.calculate_tax ,bg="#6dd47e",font='xenara',pady='2')
+        self.tax_button = Button(tax_frame,text='Tax Me!',command = self.calculate_tax ,
+                                 bg="#6dd47e",font='xenara',pady='2')
         self.tax_button.grid(pady='2')
     
     def calculate_tax(self):
@@ -172,7 +179,6 @@ class Date:
         month_options = range(1,13)
         year_options = range(1900,2024)
         
-        
         #converting options from optionmenu into integers so it can be used with datetime
         self.day1_int = IntVar()
         self.day1_int.set(day_options[1])
@@ -193,7 +199,8 @@ class Date:
         self.year2_int.set(year_options[1])
        
         #widgets for the date to days feature
-        self.format_label = Label(days_frame,text='Please use DD/MM/YY format',bg='#f4421b',font='xenera',relief='sunken')
+        self.format_label = Label(days_frame,text='Please use DD/MM/YY format',
+                                  bg='#f4421b',font='xenera',relief='sunken')
         self.format_label.grid(row=1,columnspan=4,pady=2,padx=2)
         self.day1 = ttk.OptionMenu(days_frame,self.day1_int,*day_options)
         self.day1.grid(row = 2, column = 0,pady=2,padx=2)
@@ -210,7 +217,8 @@ class Date:
         self.year2 = ttk.OptionMenu(days_frame,self.year2_int,*year_options)
         self.year2.grid(row = 3, column = 2,pady=2,padx=2)
         
-        self.question = Label(days_frame,text='Calculate the days between dates!',height='2',pady=10,bg='#f4421b',font='xenera',relief='sunken')
+        self.question = Label(days_frame,text='Calculate the days between dates!',height='2',
+                              pady=10,bg='#f4421b',font='xenera',relief='sunken')
         self.question.grid(row =0,columnspan= 5,pady=2,padx=2)
         self.days = Label(days_frame,bg='#1b60f4')
         self.days.grid(row = 5,column = 1,pady=2,padx=2)
@@ -232,23 +240,25 @@ class Date:
 class Welcome():
     def __init__(self,welcome_frame):
 
-        self.title = Label(welcome_frame,text='Welcome to the Smart Calculator',bg='#1bcdf4',font=('xenara','18'))
+        self.title = Label(welcome_frame,text='Welcome to the Smart Calculator',
+                           bg='#1bcdf4',font=('xenara','18'))
         self.title.grid(row=0,columnspan=4,padx=2,pady=2)
 
-        self.info =  Label(welcome_frame,text='Calculate numbers,tax or days!, Click any button to begin.',bg='#1bcdf4',font='xenara')
+        self.info =  Label(welcome_frame,text='Calculate numbers,tax or days!, Click any button to begin.',
+                           bg='#1bcdf4',font='xenara')
         self.info.grid(row=1,columnspan=4)
 
-        self.tax_feature = Button(welcome_frame,command = tax,text='Tax',height=5,width=10,bg='#1bcdf4',font='xenara')
+        self.tax_feature = Button(welcome_frame,command = tax,text='Tax',
+                                  height=5,width=10,bg='#1bcdf4',font='xenara')
         self.tax_feature.grid(row=3,column=0,padx=2,pady=2)
 
-        self.calc_feature = Button(welcome_frame,command = calculator,text='Calculator',height=5,width=10,bg='#1bcdf4',font='xenara')
+        self.calc_feature = Button(welcome_frame,command = calculator,text='Calculator',
+                                   height=5,width=10,bg='#1bcdf4',font='xenara')
         self.calc_feature.grid(row=3,column=1,padx=2,pady=2)
 
-        self.date_feature = Button(welcome_frame,command = days_date,text='Date To Days',height=5,bg='#1bcdf4',font='xenara')
+        self.date_feature = Button(welcome_frame,command = days_date,text='Date To Days',
+                                   height=5,bg='#1bcdf4',font='xenara')
         self.date_feature.grid(row=3,column=2,padx=2,pady=2)
-
-     
-
 
 
 #Create frames for each section
@@ -257,6 +267,7 @@ tax_frame = Frame(root, bg="#1b60f4")
 days_frame = Frame(root, bg="#1b60f4")
 welcome_frame = Frame(root,bg="#1B60F4")
 
+#clears frames when new feature is clicked
 def clear_frame():
     for widget in tax_frame.winfo_children():
         widget.destroy()
